@@ -20,24 +20,33 @@
         </div>
       </div>
       <hr><br>
+
+      <?php if ($_GET["msgid"] != "") { ?>
+        <div class="row">
+          <div class="col-12">
+            <div class="alert alert-success" role="alert">Everything is valid, store it in the database!</div>
+          </div>
+        </div>
+      <?php } ?>
+
       <div class="row">
-        <div class="col-6">
-          <form action="">
+        <div class="col-md-6">
+          <form name="formSignUp" action="signup.ctrl.php" method="post">
             <div class="form-group">
               <label for="formSignUpEmail">Email Address</label>
-              <input type="email" class="form-control" id="formSignUpEmail" placeholder="Enter your Email Address" required pattern="[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$">
+              <input type="email" class="form-control" id="formSignUpEmail" name="formSignUpEmail" placeholder="Enter your Email Address" required pattern="[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$">
             </div>
             <div class="form-group">
               <label for="formSignUpPassword">Password</label>
-              <input type="password" class="form-control" id="formSignUpPassword" placeholder="Enter your Password" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@*$#]).{8,16}" onkeyup="jsSignUpValidatePassword()">
+              <input type="password" class="form-control" id="formSignUpPassword" name="formSignUpPassword" placeholder="Enter your Password" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@*$#]).{8,16}" onkeyup="jsSignUpValidatePassword()">
 
-              <input type="password" class="form-control mt-4" id="formSignUpPasswordConf" placeholder="Confirm your Password" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@*$#]).{8,16}" onkeyup="jsSignUpValidatePassword()">
+              <input type="password" class="form-control mt-4" id="formSignUpPasswordConf" name="formSignUpPasswordConf" placeholder="Confirm your Password" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@*$#]).{8,16}" onkeyup="jsSignUpValidatePassword()">
             </div>
             <p id="password_comparison"></p>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>
-        <div class="col-6">
+        <div class="col-md-6">
           <p>Hello and welcome to talker! We are very happy that you want to join our great community!</p>
           <p>Please, enter your email and password. You must have access to your email as we will send a confirmation code to that address. Your password must be between 8 and 16 characters in length, with at least one UPPERCASE and one lowercase character, one number and one special character (@, *, $ or #).</p>
           <p>We hope you'll enjoy Talker.</p>
