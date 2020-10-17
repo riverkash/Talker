@@ -1,4 +1,6 @@
 <?php
+  session_start();
+
   // echo $_POST["formSignUpEmail"];
   // echo $_POST["formSignUpPassword"];
   // echo $_POST["user_password"];
@@ -13,12 +15,16 @@
   $password_validation = preg_match($user_password_pattern, $user_password);
 
   if ($email_validation && $password_validation && $user_password == $_POST["formSignUpPasswordConf"]) {
-    header('Location: index.php?msgid=811');
-  }elseif ($user_password != $_POST["formSignUpPasswordConf"]) {
-    echo "Passwords do not match!";
+    $_SESSION["msgid"] = "811";
+    header('Location: index.php');
   }elseif (!$email_validation) {
-    echo "Email does not meet the requirements!";
+    $_SESSION["msgid"] = "801";
+    header('Location: index.php');
   }elseif(!$password_validation) {
-    echo "Password does not meet requirements";
+    $_SESSION["msgid"] = "802";
+    header('Location: index.php');
+  }elseif ($user_password != $_POST["formSignUpPasswordConf"]) {
+    $_SESSION["msgid"] = "803";
+    header('Location: index.php');
   }
 ?>

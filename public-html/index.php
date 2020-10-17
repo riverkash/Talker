@@ -1,3 +1,8 @@
+<?php 
+  session_start();
+  require('system.ctrl.php');
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -21,17 +26,16 @@
       </div>
       <hr><br>
 
-      <?php if ($_GET["msgid"] != "") { ?>
-        <div class="row">
-          <div class="col-12">
-            <div class="alert alert-success" role="alert">Everything is valid, store it in the database!</div>
-          </div>
-        </div>
-      <?php } ?>
+      <?php
+        if (isset($_SESSION["msgid"]) && $_SESSION["msgid"] != "") {
+          echo (phpShowFeedback($_SESSION["msgid"]));
+          $_SESSION["msgid"] = "";
+        }
+      ?>
 
       <div class="row">
         <div class="col-md-6">
-          <form name="formSignUp" action="signup.ctrl.php" method="post">
+          <form name="formSignUp" action="signup.ctrl.php" method="post" novalidate>
             <div class="form-group">
               <label for="formSignUpEmail">Email Address</label>
               <input type="email" class="form-control" id="formSignUpEmail" name="formSignUpEmail" placeholder="Enter your Email Address" required pattern="[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$">
