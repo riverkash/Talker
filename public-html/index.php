@@ -1,6 +1,7 @@
 <?php 
   session_start();
   require('system.ctrl.php');
+  phpSendEmail('riverkash@me.com', 'Hello from me', 'This is a test email2222!');
 ?>
 
 <!doctype html>

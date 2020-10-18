@@ -1,6 +1,12 @@
 <?php
 
 require('db-conn.inc.php');
+require('phpMailer/PHPMailer.php');
+require('phpMailer/Exception.php');
+require('phpMailer/SMTP.php');
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 // Place this inside the bootstrap container to keep the right structure of the bootstrap document.
 function phpShowFeedback($feedback_id) {
@@ -30,6 +36,11 @@ function phpShowFeedback($feedback_id) {
       $feedback_text = "You have signed up successfully!";
     break;
 
+    case "812":
+      $feedback_type = "warning";
+      $feedback_text = "Please check your inbox and click the verify link in the email I have just sent to you!";
+    break;
+
     default:
       $feedback_type = "danger";
       $feedback_text = "Unspecified error or warning!";
@@ -56,4 +67,42 @@ function phpFetchDB($db_query, $db_data) {
 
   // Setting the fetch mode and returning the result
   return $statement->fetch(PDO::FETCH_ASSOC);
+}
+
+function phpSendEmail($to, $subject, $content) {
+  // Create a ne PHPMailer instance
+  $mail = new PHPMailer;
+  // Tell PHPMailer to use SMTP
+  $mail->isSMTP();
+  // Enable SMTP debugging
+  // 0 = Off for production use
+  // 1 = Client Messages
+  // 2 = Client and server message
+  $mail->SMTPDebug = 0;
+  // Set the host name of the mail server
+  $mail->Host = 'smtp.gmail.com';
+  // Set the SMTP port number
+  $mail->Port = 587;
+  // Set the encryption system to use tls
+  $mail->SMTPSecure = 'tls';
+  // Should I use SMTP authentication
+  $mail->SMTPAuth = true;
+  // Username for SMTP Authentication - use full email address for gmail
+  $mail->Username = 'riverkash@gmail.com';
+  // Password to use for SMTP Authentication - Your gmail password
+  $mail->Password = SMTP_PSWD;
+  // Set who the mail is to be sent from
+  $mail->setFrom('riverkash@gmail.com', 'Riverkash Harris');
+  // Set who the message is to be sent to...
+  $mail->addAddress($to);
+  // Set email format to HTML and add content
+  $mail->isHTML(true);
+  $mail->Subject = $subject;
+  $mail->Body    = $content;
+  // Send the message and check for errors
+  if (!$mail->send()) {
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
+  } else {
+    $_SESSION['msgid'] = "812";
+  }
 }
