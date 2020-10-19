@@ -88,11 +88,11 @@ function phpSendEmail($to, $subject, $content) {
   // Should I use SMTP authentication
   $mail->SMTPAuth = true;
   // Username for SMTP Authentication - use full email address for gmail
-  $mail->Username = 'riverkash@gmail.com';
+  $mail->Username = USERNAME;
   // Password to use for SMTP Authentication - Your gmail password
   $mail->Password = SMTP_PSWD;
   // Set who the mail is to be sent from
-  $mail->setFrom('riverkash@gmail.com', 'Riverkash Harris');
+  $mail->setFrom(SENDER, 'System Admin - No reply');
   // Set who the message is to be sent to...
   $mail->addAddress($to);
   // Set email format to HTML and add content
